@@ -2,7 +2,7 @@
 
 Developed using Ruby 2.1 and Rails 4.0.x
 
-Uses data generously provided by the Grand Comics Database.
+Data courtesy of the Grand Comics Database -- http://www.comics.org -- under a Creative Commons Attribution license. 
 
 == Setup
 Before you try to run this, you'll need to download the GCD data dump: go to http://www.comics.org/download/ and grab a copy.  It is around ~115MB zipped, and the download requires registration (free).
