@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20140309051447) do
 
   create_table "gcd_brand", force: true do |t|
     t.string   "name",                                                    null: false
@@ -388,5 +388,16 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "gcd_story_type", ["name"], name: "name", unique: true, using: :btree
   add_index "gcd_story_type", ["sort_code"], name: "sort_code", unique: true, using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "email"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

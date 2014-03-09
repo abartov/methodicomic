@@ -5,7 +5,11 @@ gem 'rails', '4.0.2'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+
+# added by Asaf
 gem 'mysql2'
+gem 'haml'
+gem 'haml-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -41,6 +45,10 @@ end
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
+
+# Authentication
+#gem 'omniauth'
+gem "omniauth-google-oauth2"
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
