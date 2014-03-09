@@ -1,0 +1,43 @@
+== The Methodic Comic 
+
+Developed using Ruby 2.1 and Rails 4.0.x
+
+Uses data generously provided by the Grand Comics Database.
+
+== Setup
+Before you try to run this, you'll need to download the GCD data dump: go to http://www.comics.org/download/ and grab a copy.  It is around ~115MB zipped, and the download requires registration (free).
+
+While you download, go ahead and set up the databases.  See config/database.yml.example -- rename it to config/database.yml and edit as necessary.  Make sure you configure database names and give access to the user specified in config/database.yml.
+
+After unzipping the GCD dump, import it into the development database, like this:
+
+  mysql -umethodic -p < 2014-xx-yy.sql
+
+
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
