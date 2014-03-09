@@ -10,6 +10,7 @@ gem 'sqlite3'
 gem 'mysql2'
 gem 'haml'
 gem 'haml-rails'
+gem 'thin'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
