@@ -4,11 +4,11 @@ class SessionController < ApplicationController
     @user = User.from_omniauth(auth_hash)
     #@user = User.find_or_create_from_auth_hash(auth_hash)
     session[:user_id] = @user.id
-    redirect_to '/' 
+    redirect_to '/', :notice => "Signed in!"
   end
   def destroy
     session[:user_id] = nil
-    redirect_to '/'
+    redirect_to '/', :notice => "Signed out!"
   end
   protected
   
