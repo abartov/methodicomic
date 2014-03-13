@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140313024821) do
+ActiveRecord::Schema.define(version: 20140313205522) do
 
   create_table "gcd_brand", force: true do |t|
     t.string   "name",                                                    null: false
@@ -416,6 +416,7 @@ ActiveRecord::Schema.define(version: 20140313024821) do
     t.datetime "oauth_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "default_language_code"
   end
 
 end
