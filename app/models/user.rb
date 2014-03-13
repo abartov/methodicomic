@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :tracked_series, class_name: 'GCD::GcdSeries', join_table: 'gcd_series_users'
+  #has_and_belongs_to_many :tracked_series, class_name: 'GCD::GcdSeries', join_table: 'gcd_series_users'
+  has_many :user_series
+  has_many :tracked_series, through: :user_series, class_name: 'GCD::GcdSeries'
+
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider

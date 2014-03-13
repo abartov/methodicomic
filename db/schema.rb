@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140309051447) do
+ActiveRecord::Schema.define(version: 20140313024821) do
 
   create_table "gcd_brand", force: true do |t|
     t.string   "name",                                                    null: false
@@ -333,6 +333,11 @@ ActiveRecord::Schema.define(version: 20140309051447) do
   add_index "gcd_series", ["sort_name"], name: "sort_name", using: :btree
   add_index "gcd_series", ["year_began"], name: "Yr_Began", using: :btree
 
+  create_table "gcd_series_users", id: false, force: true do |t|
+    t.integer "user_id",       null: false
+    t.integer "gcd_series_id", null: false
+  end
+
   create_table "gcd_story", force: true do |t|
     t.string   "title",                                                            default: "",                    null: false
     t.boolean  "title_inferred",                                                   default: false,                 null: false
@@ -388,6 +393,19 @@ ActiveRecord::Schema.define(version: 20140309051447) do
 
   add_index "gcd_story_type", ["name"], name: "name", unique: true, using: :btree
   add_index "gcd_story_type", ["sort_code"], name: "sort_code", unique: true, using: :btree
+
+  create_table "user_series", force: true do |t|
+    t.boolean  "finished"
+    t.boolean  "priority"
+    t.string   "comment"
+    t.integer  "user_id"
+    t.integer  "series_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_series", ["series_id"], name: "index_user_series_on_series_id", using: :btree
+  add_index "user_series", ["user_id"], name: "index_user_series_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "provider"
