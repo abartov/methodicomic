@@ -11,5 +11,5 @@ While you download, go ahead and set up the databases.  See config/database.yml.
 
 After unzipping the GCD dump, import it into the development database, like this:
 
-  mysql -umethodic -p < 2014-xx-yy.sql
+  mysql -umethodic -p -D methodicomic_dev < 2014-xx-yy.sql
 
