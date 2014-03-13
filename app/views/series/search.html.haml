@@ -1,2 +1,7 @@
-%h1 Series#search
-%p Find me in app/views/series/search.html.haml
+%h1 Series Search Results
+%p These are series names matching your search:
+%ol
+  - @matches.each do |series|
+    %li
+      = link_to series.name, series_view_path(series.id)
+
