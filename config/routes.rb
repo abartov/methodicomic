@@ -1,4 +1,9 @@
 Methodicomic::Application.routes.draw do
+  get "series/search"
+  get "series/list"
+  get "series/:id/view" => 'series#view', as: 'series_view'
+  get "series/:id/follow" => 'series#follow', as: 'series_follow'
+  get "series/:id/unfollow" => 'series#unfollow', as: 'series_unfollow'
   get "session/create"
   get "welcome/index"
   get "welcome/login"
