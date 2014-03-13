@@ -4,4 +4,5 @@
   - @matches.each do |series|
     %li
       = link_to series.name, series_view_path(series.id)
+      = " [#{series.issue_count} issues]"
 
