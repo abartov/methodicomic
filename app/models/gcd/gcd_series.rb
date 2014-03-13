@@ -9,5 +9,6 @@ module GCD
     end
     
     has_many :issues, class_name: 'GcdIssue', foreign_key: 'series_id', inverse_of: :series
+    has_and_belongs_to_many :users, class_name: 'User', join_table: 'gcd_series_users'
   end
 end
