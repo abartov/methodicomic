@@ -333,11 +333,6 @@ ActiveRecord::Schema.define(version: 20140313205522) do
   add_index "gcd_series", ["sort_name"], name: "sort_name", using: :btree
   add_index "gcd_series", ["year_began"], name: "Yr_Began", using: :btree
 
-  create_table "gcd_series_users", id: false, force: true do |t|
-    t.integer "user_id",       null: false
-    t.integer "gcd_series_id", null: false
-  end
-
   create_table "gcd_story", force: true do |t|
     t.string   "title",                                                            default: "",                    null: false
     t.boolean  "title_inferred",                                                   default: false,                 null: false
