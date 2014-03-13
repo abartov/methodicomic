@@ -2,10 +2,14 @@
 
 %h2 Series tracked
 You are currently tracking the following series:
-%ul
-  - @user.tracked_series.each do |s|
-    %li
-      = link_to s.name, series_view_path(s.id)
+- if @user.tracked_series.nil?
+  %p
+    %em Absolutely none! :)
+- else
+  %ul
+    - @user.tracked_series.each do |s|
+      %li
+        = link_to s.name, series_view_path(s.id)
 
 To track another series, enter a word to search for: 
 = form_tag series_search_path, method: 'get' do
