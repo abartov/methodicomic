@@ -1,16 +1,5 @@
 %h1 ((Dashboard comes here))
-
-%h2 Series tracked
-You are currently tracking the following series:
-- if @user.tracked_series.nil?
-  %p
-    %em Absolutely none! :)
+- if @user.nil?
+  %h2 Please log in above to see useful content. :)
 - else
-  %ul
-    - @user.tracked_series.each do |s|
-      %li
-        = link_to s.name, series_view_path(s.id)
-
-To track another series, enter a word to search for: 
-= form_tag series_search_path, method: 'get' do
-  = text_field_tag :q, nil, placeholder: 'Search'
+  != render(:partial => "dashboard")

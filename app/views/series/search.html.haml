@@ -1,13 +1,5 @@
 %h1 Series Search Results
 %p These are series names matching your search:
-%ol
-  - @matches.each do |series|
-    %li
-      = link_to series.name, series_view_path(series.id)
-      = " [#{series.issue_count} issues]"
-      - if @current_user.follows(series)
-        = link_to 'Unfollow!', series_unfollow_path(series.id)
-      - else
-        = link_to 'Follow!', series_follow_path(series.id)
+!= render(:partial => "list", :locals => {:series_list => @matches })
 
 
