@@ -1,2 +1,7 @@
-%h1 Series#view
-%p Find me in app/views/series/view.html.haml
+%h1= @series.name + " issues"
+- unless @issues.nil? or @issues.empty?
+  %ol
+  - @issues.each do |issue|
+    %li
+      = "Issue ##{issue.number} - #{issue.title} [#{issue.page_count} pages]"
+      / - link_to issue.name, issues_view_path(issue.id)

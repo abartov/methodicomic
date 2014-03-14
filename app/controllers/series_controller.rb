@@ -9,9 +9,13 @@ class SeriesController < ApplicationController
   end
 
   def view
+    @series = GCD::GcdSeries.find(params[:id])
+    @issues = @series.issues.order(sort_code: :asc)
   end
 
   def follow
+    @series = GCD::GcdSeries.find(params[:id])
+    
   end
 
   def unfollow

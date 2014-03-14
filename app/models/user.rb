@@ -15,4 +15,7 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
+  def follows(series)
+    tracked_series.include?(series)
+  end
 end
