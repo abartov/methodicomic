@@ -24,4 +24,48 @@ class User < ActiveRecord::Base
   def tracks(issue)
     tracked_issues.include?(issue)
   end
+  def unread_issue_count
+    user_issues.where(finished: false).count
+  end
+  def read_issue_count
+    user_issues.where(finished: true).count
+  end
+  def unread_issues
+    tracked_issues.includes("user_issues").where(user_issues: {finished:false})
+  end
+  def read_issues
+    tracked_issues.includes("user_issues").where(user_issues: {finished: true})
+  end
+  def unread_for_series(series)
+    tracked_issues.includes("user_issues").where(series_id: series.id, user_issues: {finished: false})
+  end
+  def read_for_series(series)
+    tracked_issues.includes("user_issues").where(series_id: series.id, user_issues: {finished: true})
+  end
+  def issue_read?(issue)
+    rel = user_issues.find_by_issue_id(issue.id)
+    return rel.finished
+  end 
+  def mark_issue_read(issue)
+    rel = user_issues.where(issue_id: issue.id)
+    unless rel.nil?
+      rel.finished = true
+      rel.finished_on = Date.today
+      rel.save!
+      return true
+    else
+      return false
+    end
+  end
+  def mark_issue_unread(issue)
+    rel = user_issues.where(issue_id: issue.id)
+    unless rel.nil?
+      rel.finished = false
+      rel.finished_on = nil
+      rel.save!
+      return true
+    else
+      return false
+    end
+  end
 end

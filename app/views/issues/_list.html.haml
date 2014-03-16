@@ -1,0 +1,12 @@
+%ol
+  - issues.each do |issue|
+    %li
+      = link_to "#{issue.series.name} - Issue ##{issue.number} - #{issue.title}", issues_view_path(issue.id)
+      = " [#{issue.page_count} pages]"
+      - if current_user.tracks(issue)
+        - if current_user.issue_read?(issue)
+          = link_to 'Mark unread!', issues_unread_path(issue.id)
+        - else 
+          = link_to 'Mark read!', issues_read_path(issue.id)
+
+
