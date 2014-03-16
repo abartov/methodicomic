@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  acquired: false
+  finished: false
+  started_on: 2014-03-15
+  finished_on: 2014-03-15
+  comment: MyString
+  user_id: 
+  issue_id: 
+
+two:
+  acquired: false
+  finished: false
+  started_on: 2014-03-15
+  finished_on: 2014-03-15
+  comment: MyString
+  user_id: 
+  issue_id: 

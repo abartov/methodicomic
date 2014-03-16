@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   has_many :user_series
   has_many :tracked_series, through: :user_series, class_name: 'GCD::GcdSeries'
 
+  has_many :user_issues
+  has_many :tracked_issues, through: :user_issues, class_name: 'GCD::GcdIssue'
+
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider
