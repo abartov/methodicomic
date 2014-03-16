@@ -21,4 +21,7 @@ class User < ActiveRecord::Base
   def follows(series)
     tracked_series.include?(series)
   end
+  def tracks(issue)
+    tracked_issues.include?(issue)
+  end
 end

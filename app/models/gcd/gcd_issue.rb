@@ -11,7 +11,7 @@ module GCD
     belongs_to :series, class_name: 'GcdSeries', foreign_key: 'series_id', inverse_of: :issues
 
     ## would we ever even need this direction of the relationship?
-    #has_many :user_issues, foreign_key: 'issue_id'
+    has_many :user_issues, foreign_key: 'issue_id'
     #has_many :tracking_users, through: :user_issues, class_name: 'User'
 
   end
