@@ -42,10 +42,22 @@ class User < ActiveRecord::Base
   def read_for_series(series)
     tracked_issues.includes("user_issues").where(series_id: series.id, user_issues: {finished: true})
   end
+  def issue_data_by_issue_id(id)
+    user_issues.find_by_issue_id(id)
+  end
+  def issue_data_by_issue(issue)
+    user_issues.find_by_issue_id(issue.id)
+  end
   def issue_read?(issue)
     rel = user_issues.find_by_issue_id(issue.id)
+    return false if rel.nil? 
     return rel.finished
   end 
+  def issue_acquired?(issue)
+    rel = user_issues.find_by_issue_id(issue.id)
+    return false if rel.nil? 
+    return rel.acquired
+  end
   def mark_issue_read(issue)
     rel = user_issues.where(issue_id: issue.id)
     unless rel.nil?

@@ -1,7 +1,3 @@
 %h1= @series.name + " issues"
 - unless @issues.nil? or @issues.empty?
-  %ol
-  - @issues.each do |issue|
-    %li
-      = "Issue ##{issue.number} - #{issue.title} [#{issue.page_count} pages]"
-      / - link_to issue.name, issues_view_path(issue.id)
+  != render(:partial => 'issues/list', :locals => {:issues => @issues})

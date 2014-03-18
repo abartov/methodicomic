@@ -1,12 +1,19 @@
 %ol
   - issues.each do |issue|
     %li
+      %div{:style => "width:55px;display:inline-block;"}
+        %span
+          &nbsp;
+      = check_box_tag("issue#{issue.id}", "acquired", current_user.issue_acquired?(issue), :class => "dyn_checkbox", 'data-remote' => true, 'data-method' => 'get', 'data-url' => issues_acquire_path(issue.id))
+      = check_box_tag("issue#{issue.id}", "finished", current_user.issue_read?(issue), :class => "dyn_checkbox", 'data-remote' => true, 'data-method' => 'get', 'data-url' => issues_read_path(issue.id))
       = link_to "#{issue.series.name} - Issue ##{issue.number} - #{issue.title}", issues_view_path(issue.id)
       = " [#{issue.page_count} pages]"
-      - if current_user.tracks(issue)
-        - if current_user.issue_read?(issue)
-          = link_to 'Mark unread!', issues_unread_path(issue.id)
-        - else 
-          = link_to 'Mark read!', issues_read_path(issue.id)
 
+:javascript
+  $(document).ready(function() {
+    $('.dyn_checkbox')
+        .bind("ajax:success", function(evt, xhr, settings) { thespan = $(this).parent().find("span"); thespan.show(); thespan.text("saved!"); thespan.addClass("ajax_success"); thespan.fadeOut(2000); });
+    $('.dyn_checkbox')
+        .bind("ajax:error", function(evt, xhr, settings) { thespan = $(this).parent().find("span"); thespan.show(); thespan.text("error! :("); thespan.addClass("ajax_error"); thespan.fadeOut(5000);});
+  });
 

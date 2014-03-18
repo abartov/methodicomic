@@ -5,9 +5,20 @@ class IssuesController < ApplicationController
   def view
   end
 
-  def read
+  def toggle_read
+    @issue = current_user.issue_data_by_issue_id(params[:id])
+    unless @issue.nil?
+      @issue.toggle!(:finished)
+    end
+    render :nothing => true
   end
 
-  def unread
+  def toggle_acquired
+    @issue = current_user.issue_data_by_issue_id(params[:id])
+    unless @issue.nil?
+      @issue.toggle!(:acquired)
+    end
+    render :nothing => true
   end
+
 end
