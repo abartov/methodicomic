@@ -1,10 +1,9 @@
 - add language filter by default
 - add language as property of User (take from auth?)
-- make the series list and search partials, used by welcome
-- implement series view
-- implement series follow, unfollow
-  - upon follow, add all known issues to tracked issues
-    - future: also support "only track issues from now on" ?
-- implement issue view
-- implement issue status controls -- acquired/read/unread; priority
++ implement series follow, unfollow
+  + upon follow, add all known issues to tracked issues
+    + future: also support "only track issues from now on" ?
++ implement issue view
++ implement issue status controls -- acquired/read/unread; 
+  - priority
 

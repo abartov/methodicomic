@@ -1,2 +1,39 @@
-%h1 Issues#view
-%p Find me in app/views/issues/view.html.haml
+%h1= "#{@issue.series.name} - Issue ##{@issue.number} - #{@issue.title}"
+%p= "Published: #{@issue.publication_date}"
+%p= "Page count: #{@issue.page_count.to_i}"
+%h2 Contents
+- stories = @issue.stories.order('sequence_number asc')
+- unless stories.nil?
+  %table
+    %tr
+      %th Title
+      %th Genre
+      %th Pages
+      %th Script
+      %th Pencils
+      %th Inks
+      %th Colors
+      %th Letters
+      %th Editing
+    - stories.each do |story|
+      %tr
+        %td= "#{story.feature} - #{story.title}"
+        %td= story.genre
+        %td= story.page_count.to_i
+        %td= story.script
+        %td= story.pencils
+        %td= story.inks
+        %td= story.colors
+        %td= story.letters
+        %td= story.editing
+      %tr{:colspan => '9'}
+        %td
+          %p
+            %strong
+              Synopsis:
+            = story.synopsis
+          %p
+            %strong
+              Characters:
+            = story.characters
+          %hr

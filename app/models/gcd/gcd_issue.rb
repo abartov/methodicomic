@@ -13,6 +13,6 @@ module GCD
     ## would we ever even need this direction of the relationship?
     has_many :user_issues, foreign_key: 'issue_id'
     #has_many :tracking_users, through: :user_issues, class_name: 'User'
-
+    has_many :stories, class_name: 'GcdStory', foreign_key: 'issue_id'
   end
 end

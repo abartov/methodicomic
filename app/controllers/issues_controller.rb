@@ -3,6 +3,10 @@ class IssuesController < ApplicationController
   end
 
   def view
+    @issue = GCD::GcdIssue.find(params[:id])
+    if @issue.nil?
+      redirect_to root_url, :flash => {:error => 'No such issue'}
+    end
   end
 
   def toggle_read
