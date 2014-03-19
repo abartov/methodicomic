@@ -30,20 +30,40 @@ class User < ActiveRecord::Base
   def read_issue_count
     user_issues.where(finished: true).count
   end
+  def unacquired_issue_count
+    user_issues.where(acquired: false).count
+  end
+  def unacquired_issues
+    tracked_issues.includes('user_issues').where(user_issues: {acquired: false})
+  end
   def unread_issues
-    tracked_issues.includes("user_issues").where(user_issues: {finished:false})
+    tracked_issues.includes('user_issues').where(user_issues: {finished:false})
   end
   def read_issues
-    tracked_issues.includes("user_issues").where(user_issues: {finished: true})
+    tracked_issues.includes('user_issues').where(user_issues: {finished: true})
   end
   def unread_for_series(series)
-    tracked_issues.includes("user_issues").where(series_id: series.id, user_issues: {finished: false})
+    tracked_issues.includes('user_issues').where(series_id: series.id, user_issues: {finished: false})
   end
   def read_for_series(series)
-    tracked_issues.includes("user_issues").where(series_id: series.id, user_issues: {finished: true})
+    tracked_issues.includes('user_issues').where(series_id: series.id, user_issues: {finished: true})
+  end
+  def track_issue(id)
+    issue = GCD::GcdIssue.find(id)
+    unless issue.nil?
+      rel = UserIssue.new(tracking_user: self, tracked_issue: issue, finished: false, acquired: false)
+      user_issues << rel
+      issue.user_issues << rel
+    else
+      raise Exception
+    end
+    return rel
   end
   def issue_data_by_issue_id(id)
-    user_issues.find_by_issue_id(id)
+    ret = user_issues.find_by_issue_id(id)
+    if ret.nil?
+      ret = track_issue(id) # start tracking this individual issue if necessary!
+    end
   end
   def issue_data_by_issue(issue)
     user_issues.find_by_issue_id(issue.id)

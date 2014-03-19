@@ -1,5 +1,6 @@
-%h1 ((Dashboard comes here))
+%h1 The Methodic Comic
 - if @user.nil?
-  %h2 Please log in above to see useful content. :)
+  %h2 Please log in above (Google ID required, for now)
+  %p Google's service is used out of laziness only; your e-mail or name are not actually used anywhere, and will never be given out.  This service will forever remain completely free, without ads.
 - else
   != render(:partial => "dashboard")

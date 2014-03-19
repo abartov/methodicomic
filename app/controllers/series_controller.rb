@@ -2,7 +2,7 @@ class SeriesController < ApplicationController
   def search
     # TODO: replace with more sophisticated search
     lang_id = GCD::GcdLanguage.where(code: current_user.default_language_code)[0].id # TODO: validate
-    @matches = GCD::GcdSeries.where("name like ? and language_id = ?", "%#{params[:q]}%", lang_id).order(issue_count: :desc)
+    @matches = GCD::GcdSeries.where("name like ? and language_id = ?", "%#{params[:q]}%", lang_id).order(issue_count: :desc).page params[:page]
   end
 
   def list
@@ -10,7 +10,7 @@ class SeriesController < ApplicationController
 
   def view
     @series = GCD::GcdSeries.find(params[:id])
-    @issues = @series.issues.order(sort_code: :asc)
+    @issues = @series.issues.order(sort_code: :asc).page params[:page]
   end
 
   def follow
@@ -22,9 +22,7 @@ class SeriesController < ApplicationController
       @series.issues.each {|issue|
         # check if user happens to already track this issue
         unless current_user.tracks(issue)
-          rel = UserIssue.new(tracking_user: current_user, tracked_issue: issue, finished: false, acquired: false)
-          current_user.user_issues << rel
-          issue.user_issues << rel
+          current_user.track_issue(issue.id)
           @tot_imported += 1
         end
       }

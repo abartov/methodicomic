@@ -1,27 +1,35 @@
-%h2 Series followed
-You are currently tracking the following series:
-- if @user.tracked_series.nil?
-  %p
-    %em Absolutely none! :)
-- else
-  != render(:partial => "series/list", :locals => {:series_list => @user.tracked_series })
-To track another series, enter a word to search for: 
-= form_tag series_search_path, method: 'get' do
-  = text_field_tag :q, nil, placeholder: 'Search'
-
-%h2 Issues tracked
-- if @user.tracked_issues.nil?
-  %p
-    %em You're tracking no issues at all!
-- else
-  You are currently tracking 
-  %strong
-    = @user.tracked_issues.count
-  issues, of which you are yet to read 
-  %strong
-    = @user.unread_issues.count.to_s+'.'
-  %h3 Newest unread issues
-  != render(:partial => 'issues/list', :locals => {:issues => @user.unread_issues.order(key_date: :desc).limit(10)})
-  %h3 Oldest unread issues
-  != render(:partial => 'issues/list', :locals => {:issues => @user.unread_issues.order(key_date: :asc).limit(10)})
+%table
+  %tr
+    %td
+      %h2 Series followed
+      You are currently tracking the following series:
+      - if @user.tracked_series.nil?
+        %p
+          %em Absolutely none! :)
+      - else
+        != render(:partial => "series/list", :locals => {:series_list => @user.tracked_series })
+      To track another series, enter a word to search for: 
+      = form_tag series_search_path, method: 'get' do
+        = text_field_tag :q, nil, placeholder: 'Search'
+        = submit_tag 'Search'
+    %td
+      %h2 Issues tracked
+      - if @user.tracked_issues.nil?
+        %p
+          %em You're tracking no issues at all!
+      - else
+        You are currently tracking 
+        %strong
+          = @user.tracked_issues.count
+        issues, of which you are yet to acquire 
+        %strong
+          = link_to @user.unacquired_issue_count.to_s, issues_unacquired_path
+        and yet to read 
+        %strong
+          = link_to @user.unread_issue_count.to_s, issues_unread_path
+        = '.'
+        %h3 Newest unread issues
+        != render(:partial => 'issues/list', :locals => {:issues => @user.unread_issues.order(key_date: :desc).limit(10)})
+        %h3 Oldest unread issues
+        != render(:partial => 'issues/list', :locals => {:issues => @user.unread_issues.order(key_date: :asc).limit(10)})
 

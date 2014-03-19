@@ -1,3 +1,4 @@
 %h1= @series.name + " issues"
 - unless @issues.nil? or @issues.empty?
   != render(:partial => 'issues/list', :locals => {:issues => @issues})
+  != paginate @issues

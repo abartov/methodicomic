@@ -2,4 +2,6 @@
 %p These are series names matching your search:
 != render(:partial => "list", :locals => {:series_list => @matches })
 
+!= paginate @matches
+
 
