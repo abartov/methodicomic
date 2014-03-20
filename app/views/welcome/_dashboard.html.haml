@@ -10,7 +10,12 @@
         != render(:partial => "series/list", :locals => {:series_list => @user.tracked_series })
       To track another series, enter a word to search for: 
       = form_tag series_search_path, method: 'get' do
-        = text_field_tag :q, nil, placeholder: 'Search'
+        = text_field_tag :q, nil, placeholder: 'e.g. Hellblazer'
+        = submit_tag 'Search'
+      %h2 Find by Writer
+      Type in a name to find issues containing texts authored by someone with that name.
+      = form_tag issues_search_by_writer_path, method: 'get' do
+        = text_field_tag :q, nil, placeholder: 'e.g. Alan Moore'
         = submit_tag 'Search'
     %td
       %h2 Issues tracked

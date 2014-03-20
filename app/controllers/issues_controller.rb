@@ -1,6 +1,11 @@
 class IssuesController < ApplicationController
   def list
   end
+  def search_by_writer
+    @issue_ids = GCD::GcdStory.where('script like ?', "%#{params[:q]}%").distinct(:issue_id).page(params[:page])
+    ids = @issue_ids.pluck(:issue_id)
+    @issues = GCD::GcdIssue.find_all_by_id(ids)
+  end
   def unread
     unless current_user.nil?
       @issues = current_user.unread_issues.page params[:page]
