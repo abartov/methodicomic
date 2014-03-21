@@ -1,6 +1,9 @@
 %h1 The Methodic Comic
 - if @user.nil?
-  %h2 Please log in above (Google ID required, for now)
+  %h2 Track your comic book reading against the Grand Comics Database!
+  %p The service lets you track series and individual issues and mark acquisition and reading progress at the level of the individual issue.
+  %p Additional features may be added according to user requests.
+  %h3 Please log in above (Google ID required, for now)
   %p Google's service is used out of laziness only; your e-mail or name are not actually used anywhere, and will never be given out.  This service will forever remain completely free, without ads.
 - else
   != render(:partial => "dashboard")
