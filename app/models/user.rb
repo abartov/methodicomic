@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
     if ret.nil?
       ret = track_issue(id) # start tracking this individual issue if necessary!
     end
+    return ret
   end
   def issue_data_by_issue(issue)
     user_issues.find_by_issue_id(issue.id)
