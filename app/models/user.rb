@@ -48,6 +48,16 @@ class User < ActiveRecord::Base
   def read_for_series(series)
     tracked_issues.includes('user_issues').where(series_id: series.id, user_issues: {finished: true})
   end
+  def tracked_issue?(id)
+    rel = user_issues.where(issue_id: id)
+    return(not rel.empty?)
+  end
+  def untrack_issue(id)
+    rel = user_issues.where(issue_id: id)
+    unless rel.empty?
+      rel[0].destroy!
+    end
+  end
   def track_issue(id)
     issue = GCD::GcdIssue.find(id)
     unless issue.nil?
@@ -71,12 +81,12 @@ class User < ActiveRecord::Base
   end
   def issue_read?(issue)
     rel = user_issues.find_by_issue_id(issue.id)
-    return false if rel.nil? 
+    return false if rel.nil?
     return rel.finished
-  end 
+  end
   def issue_acquired?(issue)
     rel = user_issues.find_by_issue_id(issue.id)
-    return false if rel.nil? 
+    return false if rel.nil?
     return rel.acquired
   end
   def mark_issue_read(issue)

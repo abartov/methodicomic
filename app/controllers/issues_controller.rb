@@ -46,4 +46,13 @@ class IssuesController < ApplicationController
       render :status => 500
     end
   end
+
+  def toggle_track
+    if current_user.tracked_issue?(params[:id])
+      current_user.untrack_issue(params[:id])
+    else
+      current_user.track_issue(params[:id])
+    end
+    head :ok # AJAX
+  end
 end
