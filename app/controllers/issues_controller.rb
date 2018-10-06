@@ -31,15 +31,19 @@ class IssuesController < ApplicationController
     @issue = current_user.issue_data_by_issue_id(params[:id])
     unless @issue.nil?
       @issue.toggle!(:finished)
+      head :ok # AJAX
+    else
+      render :status => 500
     end
-    head :ok # AJAX
   end
 
   def toggle_acquired
     @issue = current_user.issue_data_by_issue_id(params[:id])
     unless @issue.nil?
       @issue.toggle!(:acquired)
+      head :ok # AJAX
+    else
+      render :status => 500
     end
-    head :ok # AJAX
   end
 end
