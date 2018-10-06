@@ -1,6 +1,6 @@
 module GCD
   class GcdLanguage < ActiveRecord::Base
-    self.table_name = 'gcd_language'
+    self.table_name = 'stddata_language'
     self.inheritance_column = 'ruby_type'
     self.primary_key = 'id'
 

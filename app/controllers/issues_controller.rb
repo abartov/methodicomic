@@ -4,7 +4,7 @@ class IssuesController < ApplicationController
   def search_by_writer
     @issue_ids = GCD::GcdStory.where('script like ?', "%#{params[:q]}%").distinct(:issue_id).page(params[:page])
     ids = @issue_ids.pluck(:issue_id)
-    @issues = GCD::GcdIssue.find_all_by_id(ids)
+    @issues = GCD::GcdIssue.find(ids)
   end
   def unread
     unless current_user.nil?
@@ -32,7 +32,7 @@ class IssuesController < ApplicationController
     unless @issue.nil?
       @issue.toggle!(:finished)
     end
-    render :nothing => true # AJAX
+    head :ok # AJAX
   end
 
   def toggle_acquired
@@ -40,7 +40,6 @@ class IssuesController < ApplicationController
     unless @issue.nil?
       @issue.toggle!(:acquired)
     end
-    render :nothing => true # AJAX
+    head :ok # AJAX
   end
-
 end
