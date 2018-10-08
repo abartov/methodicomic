@@ -1,7 +1,7 @@
 class SeriesController < ApplicationController
   def search
     # TODO: replace with more sophisticated search
-    lang_id = GCD::GcdLanguage.where(code: current_user.default_language_code)[0].id # TODO: validate
+    lang_id = GCD::GcdLanguage.where(code: current_user.language)[0].id # TODO: validate
     @matches = GCD::GcdSeries.where("name like ? and language_id = ?", "%#{params[:q]}%", lang_id).order(issue_count: :desc).page params[:page]
   end
 
@@ -36,7 +36,7 @@ class SeriesController < ApplicationController
   def unfollow
     @series = GCD::GcdSeries.find(params[:id])
     unless @series.nil?
-      current_user.tracked_series.delete(@series) 
+      current_user.tracked_series.delete(@series)
       flash[:notice] = "You are no longer following the series '#{@series.name}'."
     else
       flash[:error] = 'No such series'

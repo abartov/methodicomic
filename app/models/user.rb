@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
+  def language
+    return default_language_code || 'en' # TODO: unhardcode this -- glean from auth? -- definitely let user pick
+  end
   def follows(series)
     tracked_series.include?(series)
   end
