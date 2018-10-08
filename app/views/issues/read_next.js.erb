@@ -1,0 +1,6 @@
+parent = $("#next_<%= @issue.series_id %>").parent();
+$("#next_<%= @issue.series_id %>").fadeOut(500, function() {
+    $("#next_<%= @issue.series_id %>").remove();
+    parent.append("<%= escape_javascript(render partial: 'issues/issue_row', locals: {issue: @issue, is_next_to_read: true}) %>");
+  }
+);

@@ -2,6 +2,7 @@ Methodicomic::Application.routes.draw do
   get "issues/list"
   get "issues/:id/view" => 'issues#view', as: 'issues_view'
   get "issues/:id/read" => 'issues#toggle_read', as: 'issues_read'
+  get "issues/:id/read_next" => 'issues#read_next', as: 'issues_next_read'
   get "issues/:id/acquire" => 'issues#toggle_acquired', as: 'issues_acquire'
   get "issues/:id/track" => 'issues#toggle_track', as: 'issues_track'
   get "issues/unread"

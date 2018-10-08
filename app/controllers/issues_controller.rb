@@ -27,13 +27,19 @@ class IssuesController < ApplicationController
     end
   end
 
+  def read_next
+    if do_toggle_read
+      @series = @issue.tracked_issue.series # grab series from previous issue
+      @issue = current_user.unread_for_series(@series).first # this should now be the *next* issue to read, now that we've marked this one as read
+      respond_to do |format|
+        format.js # AJAX
+      end
+    end
+  end
+
   def toggle_read
-    @issue = current_user.issue_data_by_issue_id(params[:id])
-    unless @issue.nil?
-      @issue.toggle!(:finished)
+    if do_toggle_read
       head :ok # AJAX
-    else
-      render :status => 500
     end
   end
 
@@ -54,5 +60,18 @@ class IssuesController < ApplicationController
       current_user.track_issue(params[:id])
     end
     head :ok # AJAX
+  end
+
+  protected
+
+  def do_toggle_read
+    @issue = current_user.issue_data_by_issue_id(params[:id])
+    unless @issue.nil?
+      @issue.toggle!(:finished)
+      return true
+    else
+      render :status => 500
+      return false
+    end
   end
 end

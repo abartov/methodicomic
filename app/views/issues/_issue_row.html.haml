@@ -1,0 +1,9 @@
+- cboxclass = (is_next_to_read ? '' : "dyn_checkbox")
+%tr{id: (is_next_to_read ? "next_#{issue.series_id}" : '')}
+  %td= check_box_tag("issue#{issue.id}", "tracked", current_user.tracked_issue?(issue.id), :class => cboxclass, 'data-remote' => true, 'data-method' => 'get', 'data-url' => issues_track_path(issue.id) )
+  %td= check_box_tag("issue#{issue.id}", "acquired", current_user.issue_acquired?(issue), :class => cboxclass, 'data-remote' => true, 'data-method' => 'get', 'data-url' => issues_acquire_path(issue.id))
+  %td= check_box_tag("issue#{issue.id}", "finished", current_user.issue_read?(issue), :class => cboxclass, 'data-remote' => true, 'data-method' => 'get', 'data-url' =>  is_next_to_read ? issues_next_read_path(issue.id) : issues_read_path(issue.id))
+  %td
+    = link_to "#{issue.series.name} - Issue ##{issue.number} - #{issue.title}", issues_view_path(issue.id)
+    = " [#{issue.page_count.to_i} pages]"
+  %td= issue.publication_date

@@ -1,5 +1,5 @@
 .container-fluid
   %h1= @series.name + " issues"
   - unless @issues.nil? or @issues.empty?
-    != render(:partial => 'issues/list', :locals => {:issues => @issues})
+    != render(:partial => 'issues/list', :locals => {:issues => @issues, is_next_to_read: false})
     != paginate @issues

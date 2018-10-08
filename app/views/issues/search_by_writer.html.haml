@@ -1,7 +1,7 @@
 .container-fluid
   %h1 Writer search results
   %p= "These are issues containing something written by someone whose name contains '#{params[:q]}':"
-  != render(:partial => "list", :locals => {:issues => @issues })
+  != render(:partial => "list", :locals => {:issues => @issues, is_next_to_read: false })
 
   != paginate @issue_ids
 
