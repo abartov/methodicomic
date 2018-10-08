@@ -1,11 +1,11 @@
 == The Methodic Comic 
 
-Developed using Ruby 2.1 and Rails 4.0.x
+Developed using Ruby 2.5 and Rails 5.x
 
 Data courtesy of the Grand Comics Database -- http://www.comics.org -- under a Creative Commons Attribution license. 
 
 == Live server
-The Methodic Comic service is available as a beta at http://methodicomic.org
+The Methodic Comic service is available as a beta at https://methodicomic.org
 
 Feedback welcome!
 
@@ -18,3 +18,4 @@ After unzipping the GCD dump, import it into the development database, like this
 
   mysql -umethodic -p -D methodicomic_dev < 2014-xx-yy.sql
 
+Then, run the migrations (```rake db:migrate```) to create the Methodic Comic tables on top of the GCD data.
