@@ -43,11 +43,19 @@ class User < ActiveRecord::Base
   def unread_issues
     tracked_issues.includes('user_issues').where(user_issues: {finished:false})
   end
+  def first_unread_issues
+    ret = []
+    tracked_series.each{|s|
+      issue = unread_for_series(s).first
+      ret << issue unless issue.nil?
+    }
+    return ret
+  end
   def read_issues
     tracked_issues.includes('user_issues').where(user_issues: {finished: true})
   end
   def unread_for_series(series)
-    tracked_issues.includes('user_issues').where(series_id: series.id, user_issues: {finished: false})
+    tracked_issues.includes('user_issues').where(series_id: series.id, variant_of_id: nil, user_issues: {finished: false}).order(key_date: :asc)
   end
   def read_for_series(series)
     tracked_issues.includes('user_issues').where(series_id: series.id, user_issues: {finished: true})

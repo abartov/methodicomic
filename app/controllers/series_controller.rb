@@ -21,7 +21,7 @@ class SeriesController < ApplicationController
       @tot_imported = 0
       @series.issues.each {|issue|
         # check if user happens to already track this issue
-        unless current_user.tracks(issue)
+        unless issue.variant_of_id != nil or current_user.tracks(issue)
           current_user.track_issue(issue.id)
           @tot_imported += 1
         end

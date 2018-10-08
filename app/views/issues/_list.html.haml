@@ -6,6 +6,7 @@
     %th Issue
     %th Pub. date
   - issues.each do |issue|
+    - next unless issue.variant_of_id.nil?
     %tr
       %td= check_box_tag("issue#{issue.id}", "tracked", current_user.tracked_issue?(issue.id), :class => "dyn_checkbox", 'data-remote' => true, 'data-method' => 'get', 'data-url' => issues_track_path(issue.id) )
       %td= check_box_tag("issue#{issue.id}", "acquired", current_user.issue_acquired?(issue), :class => "dyn_checkbox", 'data-remote' => true, 'data-method' => 'get', 'data-url' => issues_acquire_path(issue.id))
