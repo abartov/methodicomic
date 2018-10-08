@@ -1,7 +1,8 @@
-%h1 Series Search Results
-%p These are series names matching your search, by number of issues:
-!= render(:partial => "list", :locals => {:series_list => @matches })
+.container-fluid
+  %h1 Series Search Results
+  %p These are series names matching your search, by number of issues:
+  != render(:partial => "list", :locals => {:series_list => @matches })
 
-!= paginate @matches
+  != paginate @matches
 
 
