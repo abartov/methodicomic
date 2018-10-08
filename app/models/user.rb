@@ -6,16 +6,17 @@ class User < ActiveRecord::Base
   has_many :user_issues
   has_many :tracked_issues, through: :user_issues, class_name: 'GCD::GcdIssue'
 
-  def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.name = auth.info.name
-      user.email = auth.info.email
-      user.oauth_token = auth.credentials.token
-      user.oauth_expires_at = Time.at(auth.credentials.expires_at) unless auth.credentials.expires_at.nil?
-      user.default_language_code = 'en' # TODO: unhardcode this -- glean from auth? -- definitely let user pick
-      user.save!
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.provider = auth['provider']
+      user.uid = auth['uid']
+      if auth['info']
+         user.name = auth['info']['name'] || ''
+         user.email = auth['info']['email'] || ''
+         user.default_language_code = 'en' # TODO: unhardcode this -- glean from auth? -- definitely let user pick
+         user.oauth_token = auth.credentials.token
+         user.oauth_expires_at = Time.at(auth.credentials.expires_at) unless auth.credentials.expires_at.nil?
+      end
     end
   end
   def language

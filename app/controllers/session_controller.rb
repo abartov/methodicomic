@@ -1,8 +1,8 @@
 class SessionController < ApplicationController
   skip_before_action :verify_authenticity_token, :only => :create
   def create
-    @user = User.from_omniauth(auth_hash)
-    #@user = User.find_or_create_from_auth_hash(auth_hash)
+    @user = User.where(:provider => auth['provider'], :uid => auth['uid'].to_s).first || User.create_with_omniauth(auth)
+    reset_session
     session[:user_id] = @user.id
     redirect_to '/', :notice => "Signed in!"
   end
@@ -12,7 +12,7 @@ class SessionController < ApplicationController
   end
   protected
 
-  def auth_hash
+  def auth
     request.env['omniauth.auth']
   end
 end
