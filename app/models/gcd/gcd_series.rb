@@ -11,7 +11,9 @@ module GCD
     has_many :issues, class_name: 'GcdIssue', foreign_key: 'series_id', inverse_of: :series
     has_many :user_series, foreign_key: 'series_id'
     has_many :tracking_users, through: :user_series, class_name: 'User'
-
+    belongs_to :publisher, class_name: 'GcdPublisher', foreign_key: 'publisher_id'
+    belongs_to :language, class_name: 'GcdLanguage', foreign_key: 'language_id'
+    belongs_to :country, class_name: 'GcdCountry', foreign_key: 'country_id'
     #has_and_belongs_to_many :users, class_name: 'User', join_table: 'gcd_series_users'
   end
 end

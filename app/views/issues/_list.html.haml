@@ -1,6 +1,5 @@
-%table
+%table{style: 'margin-left:30px'}
   %tr
-    %th
     %th Tracked?
     %th Acquired?
     %th Read?
@@ -8,9 +7,6 @@
     %th Pub. date
   - issues.each do |issue|
     %tr
-      %td{:style => "width:55px"}
-        %span
-          &nbsp;
       %td= check_box_tag("issue#{issue.id}", "tracked", current_user.tracked_issue?(issue.id), :class => "dyn_checkbox", 'data-remote' => true, 'data-method' => 'get', 'data-url' => issues_track_path(issue.id) )
       %td= check_box_tag("issue#{issue.id}", "acquired", current_user.issue_acquired?(issue), :class => "dyn_checkbox", 'data-remote' => true, 'data-method' => 'get', 'data-url' => issues_acquire_path(issue.id))
       %td= check_box_tag("issue#{issue.id}", "finished", current_user.issue_read?(issue), :class => "dyn_checkbox", 'data-remote' => true, 'data-method' => 'get', 'data-url' => issues_read_path(issue.id))

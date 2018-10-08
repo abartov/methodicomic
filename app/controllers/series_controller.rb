@@ -2,7 +2,7 @@ class SeriesController < ApplicationController
   def search
     # TODO: replace with more sophisticated search
     lang_id = GCD::GcdLanguage.where(code: current_user.language)[0].id # TODO: validate
-    @matches = GCD::GcdSeries.where("name like ? and language_id = ?", "%#{params[:q]}%", lang_id).order(issue_count: :desc).page params[:page]
+    @matches = GCD::GcdSeries.joins(:publisher, :language, :country).includes([:publisher, :language, :country]).where("gcd_series.name like ? and is_comics_publication = 1 and language_id = ?", "%#{params[:q]}%", lang_id).order(issue_count: :desc).page params[:page]
   end
 
   def list

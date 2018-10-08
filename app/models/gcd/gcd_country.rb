@@ -1,6 +1,6 @@
 module GCD
   class GcdCountry < ActiveRecord::Base
-    self.table_name = 'gcd_country'
+    self.table_name = 'stddata_country'
     self.inheritance_column = 'ruby_type'
     self.primary_key = 'id'
 

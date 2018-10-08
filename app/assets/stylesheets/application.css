@@ -14,7 +14,7 @@
 
 .error {
   border: solid 4px #900;
-  background-color: #FF6565; 
+  background-color: #FF6565;
 }
 .notice {
    border: solid 4px #26722D;
@@ -31,7 +31,41 @@
 }
 
 td {
-  padding-right:4px;
-  padding-left:7px;
+  padding: 0;
+/*  padding-right:4px;
+  padding-left:7px;*/
   vertical-align:top;
+  box-sizing: border-box;
+}
+
+tbody {
+  box-sizing: border-box;
+}
+td:nth-child(2n+1) {
+  padding: 7px;
+  background-color: #dcdcdc;
+}
+td:nth-child(2n) {
+  padding: 7px;
+  background-color: #ececec;
+}
+
+th {
+  padding: 7px;
+  box-sizing: border-box;
+}
+
+th:nth-child(2n+1) {
+  padding: 7px;
+  background-color: #dcdcdc;
+}
+th:nth-child(2n) {
+  padding: 7px;
+  background-color: #ececec;
+}
+tr {
+  box-sizing: border-box;
+}
+table {
+  border-spacing: 0;
 }
