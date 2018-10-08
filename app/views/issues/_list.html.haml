@@ -17,9 +17,8 @@
 
 :javascript
   $(document).ready(function() {
-    $('.dyn_checkbox')
-        .bind("ajax:success", function(evt, xhr, settings) { thespan = $(this).parent().parent().find("span"); thespan.show(); thespan.text("saved!"); thespan.addClass("ajax_success"); thespan.fadeOut(2000); });
-    $('.dyn_checkbox')
-        .bind("ajax:error", function(evt, xhr, settings) { thespan = $(this).parent().parent().find("span"); thespan.show(); thespan.text("error! :("); thespan.addClass("ajax_error"); thespan.fadeOut(5000);});
+    $('.dyn_checkbox').unbind('ajax:success')
+        .bind("ajax:success", function(evt, xhr, settings) {$(this).parent().append('<span id="fademe" class="ajax_success">saved!</span>'); $('#fademe').fadeOut(2000); });
+    $('.dyn_checkbox').unbind('ajax:error')
+        .bind("ajax:error", function(evt, xhr, settings) { $(this).parent().append('<span id="fademe" class="ajax_error">error! :(</span>'); $('#fademe').fadeOut(5000);});
   });
-
