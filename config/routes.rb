@@ -8,6 +8,8 @@ Methodicomic::Application.routes.draw do
   get "issues/unread"
   get "issues/unacquired"
   get "issues/search_by_writer"
+  get "issues/search_by_series_and_writer"
+  post "issues/set" => 'issues#batch_set', as: 'issues_set'
   get "series/search"
   get "series/list"
   get "series/:id/view" => 'series#view', as: 'series_view'

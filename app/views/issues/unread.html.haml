@@ -1,4 +1,4 @@
 %h1 Unread Issues
-!= render(:partial => 'list', :locals => {:issues => @issues, is_next_to_read: false})
+!= render(:partial => 'list', :locals => {:issues => @issues, is_next_to_read: false, ttag: 'unread'})
 
 != paginate @issues

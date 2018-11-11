@@ -1,0 +1,9 @@
+.container-fluid
+  %h1= "Writer search results in series #{@series.name}"
+
+  %p= "These are issues containing something written by someone whose name contains '#{params[:writer]}':"
+  != render(:partial => "list", :locals => {:issues => @issues, is_next_to_read: false, ttag: 'search_writer' })
+
+  / != paginate @issues
+
+

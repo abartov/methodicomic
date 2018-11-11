@@ -1,8 +1,35 @@
 .container-fluid
   %h1 Writer search results
-  %p= "These are issues containing something written by someone whose name contains '#{params[:q]}':"
-  != render(:partial => "list", :locals => {:issues => @issues, is_next_to_read: false })
+  %h2 by series
+  - unless @series.empty?
+    %table
+      %tbody
+        %tr
+          %th Name
+          %th Lang
+          %th Published
+          %th Publisher
+          %th Country
+          %th Issues by this writer
+          %th Actions
+        - @series.each do |series, count|
+          %tr
+            %td= link_to series.name, series_view_path(series.id)
+            %td= series.language.code
+            %td= (series.publication_dates.nil? or series.publication_dates.empty?) ? "#{series.year_began or '?'}-#{series.year_ended or '?'}" : series.publication_dates
+            %td= series.publisher.name.length > 15 ? series.publisher.name[0..14]+'...' : series.publisher.name
+            %td= series.country.name
+            %td= link_to count.to_s, issues_search_by_series_and_writer_path(series: series.id, writer: params[:q])
+            %td
+              - if @current_user && @current_user.follows(series)
+                = link_to 'Unfollow!', series_unfollow_path(series.id)
+              - else
+                = link_to 'Follow!', series_follow_path(series.id)
+  %h2 by issues
 
-  != paginate @issue_ids
+  %p= "These are issues containing something written by someone whose name contains '#{params[:q]}':"
+  != render(:partial => "list", :locals => {:issues => @issues, is_next_to_read: false, ttag: 'search_writer' })
+
+  != paginate @issues
 
 

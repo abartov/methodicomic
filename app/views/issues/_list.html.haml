@@ -1,4 +1,11 @@
-%table{style: 'margin-left:30px'}
+%table{id: (defined?(ttag) ? ttag : ''), style: 'margin-left:30px'}
+  - unless is_next_to_read
+    - @issue_ids = issues.map{|iss| iss.id}
+    %b{style: 'margin-left:30px'}= 'Mark all:'
+    %tr
+      %td= check_box_tag("all_tracked", "tracked", true, 'data-remote' => true, 'data-method' => 'post', 'data-url' => issues_set_path, 'data-params' => {op: :tracked, ids: @issue_ids, ttag: ttag }.to_param )
+      %td= check_box_tag("all_acquired", "acquired", false, 'data-remote' => true, 'data-method' => 'post', 'data-url' => issues_set_path, 'data-params' => {op: :acquired, ids: @issue_ids, ttag: ttag}.to_param )
+      %td= check_box_tag("all_finished", "finished", false, 'data-remote' => true, 'data-method' => 'post', 'data-url' => issues_set_path, 'data-params' => {op: :finished, ids: @issue_ids, ttag: ttag}.to_param )
   %tr
     %th Tracked?
     %th Acquired?
@@ -11,8 +18,26 @@
 
 :javascript
   $(document).ready(function() {
+      function update_all_toggles() {
+        var ttag = "#{defined?(ttag) ? ttag : ''}";
+        if(ttag != "") {
+          ['acquired', 'finished'].forEach(function(klass) {
+            if($('#'+ttag+' input.'+klass).length > 0) {
+              all_true = true;
+              $('#'+ttag+' input.'+klass).each(function() {
+                if($(this).prop('checked') == false)
+                  all_true = false;
+              })
+              if(all_true)
+                $('#'+ttag+' input#all_'+klass).prop('checked',true);
+            }
+          });
+        }
+      };
+
     $('.dyn_checkbox').unbind('ajax:success')
-        .bind("ajax:success", function(evt, xhr, settings) {$(this).parent().append('<span id="fademe" class="ajax_success">saved!</span>'); $('#fademe').fadeOut(2000); });
+        .bind("ajax:success", function(evt, xhr, settings) { update_all_toggles(); $(this).parent().append('<span id="fademe" class="ajax_success">saved!</span>'); $('#fademe').fadeOut(2000);});
     $('.dyn_checkbox').unbind('ajax:error')
-        .bind("ajax:error", function(evt, xhr, settings) { $(this).parent().append('<span id="fademe" class="ajax_error">error! :(</span>'); $('#fademe').fadeOut(5000);});
+        .bind("ajax:error", function(evt, xhr, settings) { update_all_toggles(); $(this).parent().append('<span id="fademe" class="ajax_error">error! :(</span>'); $('#fademe').fadeOut(5000);});
+    update_all_toggles();
   });
